@@ -20,3 +20,13 @@ print("Check 3 - negative values:", negative)
 days = df.groupby(["POC_Code", "Gen_Code", "Fuel_Code"])["Trading_Date"].nunique()
 print("Check 4 - units with fewer than 31 days:")
 print(days[days < 31])
+
+# 检查 5：按天逐批处理，每天总量和前一天比较
+prev = None
+for date, day in df.groupby("Trading_Date"):
+    total = day[tp_cols].sum().sum() / 1e6
+    flag = ""
+    if prev is not None and abs(total - prev) / prev > 0.10:
+        flag = "  <-- changed more than 10% from previous day"
+    print(f"{date}: {len(day)} rows, {total:.1f} GWh{flag}")
+    prev = total
