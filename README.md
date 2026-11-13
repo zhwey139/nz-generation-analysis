@@ -5,7 +5,7 @@ Python analysis of New Zealand half-hourly grid generation data from the Electri
 **Status: work in progress**
 
 ## Background
-In a RESE421 tutorial, I analysed one day of half-hourly generation data (22 August 2025) in Excel. This project extends that to the full month of August 2025 using Python, with data checks and visualisation.
+In a tutorial for my Energy Economic Analyses course at Victoria University of Wellington, I analysed one day of half-hourly generation data (22 August 2025) in Excel. This project extends that to the full month of August 2025 using Python, with data checks and visualisation.
 
 ## Data
 - Source: Electricity Authority EMI, Generation output (`202508_Generation_MD.csv`)
@@ -16,7 +16,7 @@ In a RESE421 tutorial, I analysed one day of half-hourly generation data (22 Aug
 1. Reads the CSV with pandas
 2. Checks fuel labels and finds inconsistent codes (`HYD` vs `Hydro`, `GEO` vs `Geo`, `SOL` vs `Solar`). Each was checked against `Tech_Code` before merging. `ELE` units are batteries (`Tech_Code` = `BAT`), grouped as Battery
 3. Sums TP1–TP50 to get daily generation per unit, then totals by date and fuel type (GWh)
-4. Plots a stacked area chart
+4. Plots a stacked area chart (PNG) and an interactive version with plotly (HTML)
 
 ## What `checks.py` does
 Processes the data in daily batches and runs automatic checks:
@@ -28,6 +28,8 @@ Processes the data in daily batches and runs automatic checks:
 
 ## Result
 ![Daily generation by fuel type](figures/daily_generation_by_fuel.png)
+
+**Interactive version:** [open the interactive chart](https://zhwey139.github.io/nz-generation-analysis/figures/daily_generation_by_fuel.html) (hover for daily values, click the legend to show or hide fuel types)
 
 August 2025 total: about 3,914 GWh (about 126 GWh per day). Hydro 58%, geothermal 22%, gas 11%, wind 7%, coal 2%.
 
@@ -43,11 +45,12 @@ August 2025 total: about 3,914 GWh (about 126 GWh per day). Hydro 58%, geotherma
 - [ ] Check for sudden jumps within each unit's half-hourly data
 - [ ] Evening peak (TP43) comparison across the month
 - [ ] Add more months
+- [x] Interactive chart (plotly, published with GitHub Pages)
 - [ ] Interactive dashboard
 
 ## How to run
 ```
-pip install pandas matplotlib
+pip install pandas matplotlib plotly
 python3 explore.py
 python3 checks.py
 ```
