@@ -1,3 +1,4 @@
+import plotly.express as px
 import matplotlib.pyplot as plt
 import os
 import pandas as pd
@@ -49,3 +50,14 @@ plt.tight_layout()
 os.makedirs("figures", exist_ok=True)
 plt.savefig("figures/daily_generation_by_fuel.png", dpi=150)
 print("Saved figures/daily_generation_by_fuel.png")
+
+# Interactive chart (open the HTML file in a browser)
+fig = px.area(
+    daily_gwh,
+    title="NZ daily grid generation by fuel type, August 2025 (interactive)",
+    labels={"value": "Generation (GWh/day)", "Trading_Date": "Date", "Fuel": "Fuel type"},
+)
+fig.update_layout(hovermode="x unified")
+fig.update_traces(hovertemplate="%{y:.1f} GWh")
+fig.write_html("figures/daily_generation_by_fuel.html")
+print("Saved figures/daily_generation_by_fuel.html")
