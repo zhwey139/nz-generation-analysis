@@ -37,7 +37,5 @@ August 2025 total: about 3,914 GWh (about 126 GWh per day). Hydro 58%, geotherma
 - [ ] Interactive dashboard
 
 ## How to run
-```
 pip install pandas matplotlib
 python3 explore.py
-```
